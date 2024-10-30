@@ -15,7 +15,7 @@ export const getCityList = async () => {
     }
     
     const body = {
-        province_id: 3
+        province_id: 9
     }
 
     const signature = createSignature(signHeader, body)
@@ -34,7 +34,6 @@ export const getCityList = async () => {
         body,
         url: "/data/city-list"
     }
-    console.log(fetchParams,"<");
 
     const res = await fetchAPI(fetchParams);
     
