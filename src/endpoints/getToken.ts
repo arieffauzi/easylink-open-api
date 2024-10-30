@@ -36,4 +36,6 @@ export const getToken = async () => {
   };
 
   const result = await fetchAPI(fetchParams);
+
+  return result
 };
