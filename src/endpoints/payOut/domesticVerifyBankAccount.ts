@@ -1,7 +1,7 @@
 import { uuid } from "uuidv4";
-import { getEnv } from "../getenv";
-import { createSignature, fetchAPI } from "../utils";
-import { getToken } from "./getToken";
+import { getEnv } from "../../getenv";
+import { createSignature, fetchAPI } from "../../utils";
+import { getToken } from "../getToken";
 
 export const domesticVerifyBankAccount = async () => {
   console.log("verify invoke");
@@ -16,7 +16,7 @@ export const domesticVerifyBankAccount = async () => {
   };
 
   const body = {
-    account_number: "1650002564830",
+    account_number: "10010056595",
     bank_id: "1",
   };
 
