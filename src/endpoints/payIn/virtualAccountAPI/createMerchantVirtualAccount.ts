@@ -1,10 +1,9 @@
 import { uuid } from "uuidv4";
-import { getEnv } from "../getenv";
-import { createSignature, fetchAPI } from "../utils";
-import { getToken } from "./getToken";
+import { getEnv } from "../../../getenv";
+import { createSignature, fetchAPI } from "../../../utils";
+import { getToken } from "../../getToken";
 
-export const domesticVerifyBankAccount = async () => {
-  console.log("verify invoke");
+export const createMerchantVirtualAccount = async () => {
   const APP_KEY = getEnv("APP_KEY", "");
   const timestamp = new Date().getTime();
   const NONCE = uuid();
@@ -16,8 +15,14 @@ export const domesticVerifyBankAccount = async () => {
   };
 
   const body = {
-    account_number: "1650002564830",
-    bank_id: "1",
+    customer_name: "Arief Fauzi",
+    payment_channel: "PERMATA",
+    billing_type: "2",
+    external_id: uuid(),
+    expiration_date: "2024-09-27T19:00:00+07:00",
+    amount: "",
+    customer_phone: "123456789",
+    customer_email: "arief@easylink.id",
   };
 
   const signature = createSignature(sigHeaders, body);
@@ -30,14 +35,13 @@ export const domesticVerifyBankAccount = async () => {
     "X-EasyLink-Timestamp": timestamp,
     "X-EasyLink-Sign": signature,
   };
-
   console.log("headers", headers);
 
   const fetchParams = {
     headers,
     body,
-    url: "/v2/transfer/verify-bank-account",
+    url: "/virtual-account/create-virtual-account",
   };
 
-  const result = await fetchAPI(fetchParams);
+  const result = fetchAPI(fetchParams);
 };
