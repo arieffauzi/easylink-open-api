@@ -1,28 +1,27 @@
-import { getEnv } from "../getenv";
 import { uuid } from "uuidv4";
+import { getEnv } from "../getenv";
 import { createSignature, fetchAPI } from "../utils";
+import { getToken } from "../endpoints/getToken";
 
-export const getToken = async () => {
-  const timestamp = new Date().getTime();
+export const getProvinceList = async () => {
+  console.log("list provinsi");
   const APP_KEY = getEnv("APP_KEY", "");
-  const APP_ID = getEnv("APP_ID", "");
-  const APP_SECRET = getEnv("APP_SECRET", "");
+  const timestamp = new Date().getTime();
   const NONCE = uuid();
 
-  const sigHeaders = {
+  const signHeader = {
     "X-EasyLink-AppKey": APP_KEY,
     "X-EasyLink-Nonce": NONCE,
     "X-EasyLink-Timestamp": timestamp,
   };
 
-  const body = {
-    app_id: APP_ID,
-    app_secret: APP_SECRET,
-  };
+  const body = {};
 
-  const signature = createSignature(sigHeaders, body);
+  const signature = createSignature(signHeader, body);
+  const token = await getToken();
 
   const headers = {
+    Authorization: token,
     "X-EasyLink-AppKey": APP_KEY,
     "X-EasyLink-Nonce": NONCE,
     "X-EasyLink-Timestamp": timestamp,
@@ -32,10 +31,8 @@ export const getToken = async () => {
   const fetchParams = {
     headers,
     body,
-    url: "/get-access-token",
+    url: "/data/province-list",
   };
 
-  const result = await fetchAPI(fetchParams);
-
-  return `Bearer ${result}`
+  const res = await fetchAPI(fetchParams);
 };
