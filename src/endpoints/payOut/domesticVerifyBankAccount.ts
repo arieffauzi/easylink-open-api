@@ -17,7 +17,7 @@ export const domesticVerifyBankAccount = async () => {
 
   const body = {
     account_number: "10010056595",
-    bank_id: "1",
+    bank_id: "24",
   };
 
   const signature = createSignature(sigHeaders, body);
