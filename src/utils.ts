@@ -19,8 +19,21 @@ export const createSignature = (headers: any, body: any) => {
   for (let i = 0; i < formData.length; i++) {
     result.push(formData[i].join("="));
   }
-  const originString = result.join("&");
-  const stringToSign = `${APP_KEY + originString + APP_KEY}`;
+
+  newKeys = newKeys.sort();
+  let originStr = "";
+  let i = 0;
+  for (const v of newKeys) {
+    if (i > 0) {
+      originStr += `&${v}=${encodeURIComponent(String(data[v]))}`;
+    } else {
+      originStr += `${v}=${encodeURIComponent(String(data[v]))}`;
+    }
+    i++;
+  }
+  originStr = originStr.replace(/%20/g, "+");
+
+  const stringToSign = `${APP_KEY + originStr + APP_KEY}`;
   console.log("stringToSign", stringToSign);
   const signature = sign(
     "RSA-SHA256",
