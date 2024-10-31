@@ -13,11 +13,12 @@ export const createSignature = (headers: any, body: any) => {
   const APP_KEY = getEnv("APP_KEY", "");
 
   const data = { ...headers, ...body };
-  const formData = Object.entries(data);
 
-  var result = [];
-  for (let i = 0; i < formData.length; i++) {
-    result.push(formData[i].join("="));
+  let newKeys: string[] = [];
+  for (const k in data) {
+    if (data.hasOwnProperty(k)) {
+      newKeys.push(k);
+    }
   }
 
   newKeys = newKeys.sort();
