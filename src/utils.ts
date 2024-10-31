@@ -13,12 +13,11 @@ export const createSignature = (headers: any, body: any) => {
   const APP_KEY = getEnv("APP_KEY", "");
 
   const data = { ...headers, ...body };
+  const formData = Object.entries(data);
 
-  let newKeys: string[] = [];
-  for (const k in data) {
-    if (data.hasOwnProperty(k)) {
-      newKeys.push(k);
-    }
+  var result = [];
+  for (let i = 0; i < formData.length; i++) {
+    result.push(formData[i].join("="));
   }
 
   newKeys = newKeys.sort();
@@ -36,7 +35,6 @@ export const createSignature = (headers: any, body: any) => {
 
   const stringToSign = `${APP_KEY + originStr + APP_KEY}`;
   console.log("stringToSign", stringToSign);
-  
   const signature = sign(
     "RSA-SHA256",
     Buffer.from(stringToSign),

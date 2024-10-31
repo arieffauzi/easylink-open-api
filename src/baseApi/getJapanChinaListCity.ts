@@ -1,28 +1,30 @@
-import { getEnv } from "../getenv";
 import { uuid } from "uuidv4";
+import { getToken } from "../endpoints/getToken";
+import { getEnv } from "../getenv";
 import { createSignature, fetchAPI } from "../utils";
 
-export const getToken = async () => {
-  const timestamp = new Date().getTime();
-  const APP_KEY = getEnv("APP_KEY", "");
-  const APP_ID = getEnv("APP_ID", "");
-  const APP_SECRET = getEnv("APP_SECRET", "");
-  const NONCE = uuid();
+export const getJapanChinaListCity = async () => {
+  console.log("japan");
 
-  const sigHeaders = {
+  const APP_KEY = getEnv("APP_KEY", "");
+  const NONCE = uuid();
+  const timestamp = new Date().getTime();
+
+  const signHeader = {
     "X-EasyLink-AppKey": APP_KEY,
     "X-EasyLink-Nonce": NONCE,
     "X-EasyLink-Timestamp": timestamp,
   };
 
   const body = {
-    app_id: APP_ID,
-    app_secret: APP_SECRET,
+    country: "JPN",
   };
 
-  const signature = createSignature(sigHeaders, body);
+  const signature = createSignature(signHeader, body);
+  const token = await getToken();
 
   const headers = {
+    Authorization: token,
     "X-EasyLink-AppKey": APP_KEY,
     "X-EasyLink-Nonce": NONCE,
     "X-EasyLink-Timestamp": timestamp,
@@ -32,10 +34,8 @@ export const getToken = async () => {
   const fetchParams = {
     headers,
     body,
-    url: "/get-access-token",
+    url: "/data/destination-address-city",
   };
 
-  const result = await fetchAPI(fetchParams);
-
-  return `Bearer ${result}`
+  const res = await fetchAPI(fetchParams);
 };
