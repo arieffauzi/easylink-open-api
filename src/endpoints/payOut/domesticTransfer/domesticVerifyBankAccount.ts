@@ -1,10 +1,9 @@
 import { uuid } from "uuidv4";
-import { getEnv } from "../../getenv";
-import { createSignature, fetchAPI } from "../../utils";
-import { getToken } from "../getToken";
+import { getEnv } from "../../../getenv";
+import { createSignature, fetchAPI } from "../../../utils";
+import { getToken } from "../../getToken";
 
 export const domesticVerifyBankAccount = async () => {
-  console.log("verify invoke");
   const APP_KEY = getEnv("APP_KEY", "");
   const timestamp = new Date().getTime();
   const NONCE = uuid();
@@ -30,8 +29,6 @@ export const domesticVerifyBankAccount = async () => {
     "X-EasyLink-Timestamp": timestamp,
     "X-EasyLink-Sign": signature,
   };
-
-  console.log("headers", headers);
 
   const fetchParams = {
     headers,

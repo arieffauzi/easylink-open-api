@@ -3,7 +3,7 @@ import { getEnv } from "../../../getenv";
 import { createSignature, fetchAPI } from "../../../utils";
 import { getToken } from "../../getToken";
 
-export const createMerchantVirtualAccount = async () => {
+export const getDomesticTransfer = async () => {
   const APP_KEY = getEnv("APP_KEY", "");
   const timestamp = new Date().getTime();
   const NONCE = uuid();
@@ -15,14 +15,7 @@ export const createMerchantVirtualAccount = async () => {
   };
 
   const body = {
-    customer_name: "Yoga Chandra Sudewo",
-    payment_channel: "PERMATA",
-    billing_type: "2",
-    external_id: uuid(),
-    expiration_date: "2024-11-27T19:00:00+07:00",
-    amount: "",
-    customer_phone: "87728493999",
-    customer_email: "imansetiawan@gmail.com",
+    reference: "3637c963-7a6e-490b-8ac8-8fc018167490",
   };
 
   const signature = createSignature(sigHeaders, body);
@@ -40,7 +33,7 @@ export const createMerchantVirtualAccount = async () => {
   const fetchParams = {
     headers,
     body,
-    url: "/virtual-account/create-virtual-account",
+    url: "/transfer/get-domestic-transfer",
   };
 
   const result = fetchAPI(fetchParams);

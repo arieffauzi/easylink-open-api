@@ -32,7 +32,7 @@ export const createSignature = (headers: any, body: any) => {
     }
     i++;
   }
-  originStr = originStr.replace("%20", "+");
+  originStr = originStr.replace(/%20/g, "+");
 
   const stringToSign = `${APP_KEY + originStr + APP_KEY}`;
   console.log("stringToSign", stringToSign);
