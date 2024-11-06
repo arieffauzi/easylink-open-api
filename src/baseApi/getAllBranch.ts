@@ -31,12 +31,17 @@ export const getAllBranches = async () => {
     "X-EasyLink-Timestamp": timestamp,
     "X-EasyLink-Sign": signature,
   };
+  
 
   const fetchParams = {
     headers,
     body,
     url: "/data/branch-list",
   };
+  console.log(112,fetchParams);
+  
 
   const res = await fetchAPI(fetchParams);
+  console.log(111,res);
+  
 };

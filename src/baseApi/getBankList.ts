@@ -17,7 +17,7 @@ export const getBankList = async () => {
   };
 
   const body = {
-    country: "FRA"
+    country: "SGP"
 }
 
   const signature = createSignature(signHeader, body);

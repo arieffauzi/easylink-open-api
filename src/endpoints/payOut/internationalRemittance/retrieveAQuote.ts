@@ -17,7 +17,7 @@ export const retrieveAQuote = async () => {
 
   const body = {
     source_currency: "IDR",
-    destination_currency: "CNY",
+    destination_currency: "USD",
     destination_segment: "individual",
   };
 
@@ -41,5 +41,4 @@ export const retrieveAQuote = async () => {
   };
 
   const result = await fetchAPI(fetchParams);
-  console.log(333, result);
 };
