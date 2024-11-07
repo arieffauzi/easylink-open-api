@@ -1,14 +1,15 @@
 import { createTransfer } from "./createTransfer";
 import { IDestinationCustomer, ISourceCustomer } from "./constant";
 
-export const createTransferGlobalC2CBank = async () => {
-  console.log("global c2c");
+export const createTransferMalaysiaC2CBank = async () => {
+  console.log("c2c my");
 
   const transaction = {
-    destination_country: "SGP",
-    destination_currency: "USD",
+    destination_country: "MYS",
+    destination_currency: "MYR",
     destination_amount: 90.79,
   };
+
   const source: ISourceCustomer = {
     segment: "individual",
     address_country: "IDN",
@@ -21,15 +22,15 @@ export const createTransferGlobalC2CBank = async () => {
     date_of_birth: "1997-11-02",
     nationality: "IDN",
   };
+
   const destination: IDestinationCustomer = {
     segment: "individual",
     beneficiary_account_type: "Bank Account",
-    bank: "CITIBANK N.A. SINGAPORE",
-    email: "surfin@163.com",
     first_name: "Wang",
     last_name: "DACHUI",
-    swift_code: "CIBBSGSG",
-    bank_account_number: "34567896788",
+    bank: "AFFIN BANK BERHAD",
+    bank_code: "5074",
+    bank_account_number: "4123213123123",
     address_city: "ss",
     address_country: "SGP",
     address_line: "CIBBSGSG",

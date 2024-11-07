@@ -17,8 +17,6 @@ export const getRemittanceList = async () => {
   };
 
   const yesterdayISO = moment().subtract(1, 'day').toISOString();
-console.log(11,yesterdayISO);
-
 
   const body = {
     start_datetime: yesterdayISO,
