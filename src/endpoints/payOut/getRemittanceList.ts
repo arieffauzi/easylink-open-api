@@ -1,9 +1,11 @@
 import { uuid } from "uuidv4";
-import { getEnv } from "../../../getenv";
-import { createSignature, fetchAPI } from "../../../utils";
-import { getToken } from "../../getToken";
+import { getEnv } from "../../getenv";
+import { createSignature, fetchAPI } from "../../utils";
+import { getToken } from "../getToken";
+import moment from "moment";
 
-export const createDomesticTransfer = async () => {
+
+export const getRemittanceList = async () => {
   const APP_KEY = getEnv("APP_KEY", "");
   const timestamp = new Date().getTime();
   const NONCE = uuid();
@@ -14,14 +16,14 @@ export const createDomesticTransfer = async () => {
     "X-EasyLink-Timestamp": timestamp,
   };
 
+  const yesterdayISO = moment().subtract(1, 'day').toISOString();
+
   const body = {
-    reference: uuid(),
-    bank_id: "2",
-    account_holder_name: "RAIDY WIJAYA",
-    account_number: "0315747263",
-    amount: "4000",
-    description: "domestic transfer bni 0315747263 009",
-  };
+    start_datetime: yesterdayISO,
+    end_datetime: new Date().toISOString(),
+    page_size: "10",
+    page_number: "1"
+}
 
   const signature = createSignature(sigHeaders, body);
   const token = await getToken();
@@ -33,13 +35,13 @@ export const createDomesticTransfer = async () => {
     "X-EasyLink-Timestamp": timestamp,
     "X-EasyLink-Sign": signature,
   };
-  console.log("headers", headers);
 
   const fetchParams = {
     headers,
     body,
-    url: "/v2/transfer/create-domestic-transfer",
+    url: "/transfer/get-remittance-list",
   };
+
 
   const result = fetchAPI(fetchParams);
 };

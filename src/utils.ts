@@ -15,7 +15,7 @@ export const createSignature = (headers: any, body: any) => {
   const data = { ...headers, ...body };
   let formData = Object.entries(data);
 
-  let custom = '';
+  let custom = "";
 
   const test = formData.map((item: any[]) => {
     if (typeof item[1] == "object") {
@@ -26,25 +26,30 @@ export const createSignature = (headers: any, body: any) => {
 
   let firstSort = test.sort();
 
-
   for (let index = 0; index < firstSort.length; index++) {
-    if(typeof firstSort[index][1] !== 'string' && typeof firstSort[index][1] !== 'number') {
+    if (
+      typeof firstSort[index][1] !== "string" &&
+      typeof firstSort[index][1] !== "number"
+    ) {
       const secondSort = firstSort[index][1].sort();
       for (let i = 0; i < secondSort.length; i++) {
-       custom += `&${firstSort[index][0]}.${secondSort[i][0]}=${secondSort[i][1]}`;
+        custom += `&${firstSort[index][0]}.${secondSort[i][0]}=${encodeURIComponent(String(secondSort[i][1]))}`;
       }
       firstSort[index] = secondSort;
     } else {
-      custom += `&${firstSort[index][0]}=${firstSort[index][1]}`
+      if (index > 0) {
+        custom += `&${firstSort[index][0]}=${encodeURIComponent(String(firstSort[index][1]))}`;
+      } else {
+        custom += `${firstSort[index][0]}=${encodeURIComponent(String(firstSort[index][1]))}`;
+      }
     }
   }
 
-  custom = custom.replace(/ /g, "+").replace(/\//g, '%2F');
-
+  custom = custom.replace(/%20/g, "+").replace(/\//g, "%2F");
 
   const stringToSign = `${APP_KEY + custom + APP_KEY}`;
 
-  console.log('stringToSign', stringToSign)
+  console.log("stringToSign", stringToSign);
 
   const signature = sign(
     "RSA-SHA256",
