@@ -15,7 +15,7 @@ export const getDomesticTransfer = async () => {
   };
 
   const body = {
-    reference: "3637c963-7a6e-490b-8ac8-8fc018167490",
+    reference: "5bd215c1-3b95-439e-8874-7d452d4627de",
   };
 
   const signature = createSignature(sigHeaders, body);

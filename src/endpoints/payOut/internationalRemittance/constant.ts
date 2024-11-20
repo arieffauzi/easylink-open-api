@@ -26,6 +26,9 @@ export interface ISourceCustomer {
     legal_name_last:string;
     date_of_birth:string;
     nationality:string;
+    gender?:string;
+    mobile_number?: string;
+    
 }
 
 // all optional cause some country destination params are different
@@ -36,12 +39,19 @@ export interface IDestinationBusiness {
     bank_account_number?: string;
     bank?:string;
     bank_code?:string;
+    branch_code?:string;
+    mobile_number?: string;
+    sort_code?:string;
     email?:string;
     company_name?: string;
+    nib?:string;
+    iban?:string;
     address_country_name?: string;
     address_country?: string;
     address_city?: string;
     address_line?: string;
+    address_zip?:string;
+    date_of_incorporation?:string;
     relation?: string;
     relation_code?: string;
     purpose?: string;
@@ -64,8 +74,13 @@ export interface IDestinationCustomer {
     bank?: string;
     bank_code?: string;
     ewallet_id?:string;
+    ewallet_type?:string;
     bank_account_number?: string;
     id_number?:string;
+    address_zip?:string;
+    iban?:string;
+    branch_code?:string;
+    sort_code?:string;
     date_of_birth?:string;
     mobile_number?:string;
     address_city?: string;
@@ -77,6 +92,8 @@ export interface IDestinationCustomer {
     purpose_code?: string;
     source_of_income?: string;
     source_of_income_code?: string;
+    occupation?:string;
+    occupation_code?:string;
 }
 
 type Destination = IDestinationBusiness | IDestinationCustomer;
