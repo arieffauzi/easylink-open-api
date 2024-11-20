@@ -3,8 +3,9 @@ import { getEnv } from "../../../getenv";
 import { createSignature, fetchAPI } from "../../../utils";
 import { getToken } from "../../getToken";
 
-export const internationalConfirmTransfer = async () => {
-    console.log("confirm inter");
+export const getInternationalTransfer = async () => {
+    console.log("get inter tf");
+    
     const APP_KEY = getEnv("APP_KEY", "");
     const NONCE = uuid();
     const timestamp = new Date().getTime();
@@ -33,7 +34,7 @@ export const internationalConfirmTransfer = async () => {
     const fetchParams = {
         headers,
         body,
-        url : "/transfer/confirm-international-transfer"
+        url : "/transfer/get-international-transfer"
     }
 
     console.log(12, fetchParams);
